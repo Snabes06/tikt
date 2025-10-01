@@ -10,5 +10,6 @@
   },
   "keywords": [],
   "author": "Snabes",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"
 }

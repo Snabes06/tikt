@@ -1,6 +1,7 @@
 // tikt language lexer
+const OPERATOR_WORDS = ['nocap', 'cap'];
 const KEYWORDS = [
-    'let', 'nocap', 'fn', 'if', 'else', 'while', 'return', 'true', 'false', 'yap'
+    'gyatt', 'fr', 'huzz', 'ong', 'nah', 'fentfold', 'bet', 'based', 'cringe', 'yap'
 ];
 
 export function tokenize(input) {
@@ -11,7 +12,7 @@ export function tokenize(input) {
     while (i < input.length) {
         let char = input[i];
 
-        // Skip whitespace (track newlines)
+        // Skip whitespace (track newlines) 
         if (/\s/.test(char)) {
             if (char === '\n') {
                 line++;
@@ -35,7 +36,7 @@ export function tokenize(input) {
             continue;
         }
 
-        // Identifiers or keywords
+        // Identifiers, keywords, or operator words
         if (/[a-zA-Z_]/.test(char)) {
             let ident = '';
             let startCol = col;
@@ -43,7 +44,9 @@ export function tokenize(input) {
                 ident += input[i++];
                 col++;
             }
-            if (KEYWORDS.includes(ident)) {
+            if (OPERATOR_WORDS.includes(ident)) {
+                tokens.push({ type: 'OPERATOR', value: ident, line, col: startCol });
+            } else if (KEYWORDS.includes(ident)) {
                 tokens.push({ type: 'KEYWORD', value: ident, line, col: startCol });
             } else {
                 tokens.push({ type: 'IDENTIFIER', value: ident, line, col: startCol });
@@ -74,7 +77,7 @@ export function tokenize(input) {
         }
 
         // Operators (multi-char first)
-        const twoCharOps = ['==', '!=', '<=', '>='];
+        const twoCharOps = ['<=', '>='];
         const oneCharOps = ['+', '-', '*', '/', '=', '<', '>', '(', ')', '{', '}', ';', ',',];
         let two = input.slice(i, i+2);
         if (twoCharOps.includes(two)) {

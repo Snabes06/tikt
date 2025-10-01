@@ -53,8 +53,8 @@ export function evaluate(node, env = {}) {
 				case '-': return left - right;
 				case '*': return left * right;
 				case '/': return left / right;
-				case '==': return left === right;
-				case '!=': return left !== right;
+				case 'nocap': return left == right;
+				case 'cap': return left != right;
 				case '<': return left < right;
 				case '>': return left > right;
 				case '<=': return left <= right;

@@ -16,7 +16,7 @@ function peek(tokens) {
 // Expression parser (handles numbers, identifiers, binary ops)
 function parseExpression(tokens) {
 	let left = parsePrimary(tokens);
-	while (peek(tokens) && peek(tokens).type === 'OPERATOR' && ['+', '-', '*', '/', '==', '!=', '<', '>', '<=', '>='].includes(peek(tokens).value)) {
+	while (peek(tokens) && peek(tokens).type === 'OPERATOR' && ['+', '-', '*', '/', 'nocap', 'cap', '<', '>', '<=', '>='].includes(peek(tokens).value)) {
 		const op = tokens.shift().value;
 		const right = parsePrimary(tokens);
 		left = { type: 'BinaryExpression', operator: op, left, right };
@@ -30,7 +30,7 @@ function parsePrimary(tokens) {
 	if (token.type === 'NUMBER') return { type: 'NUMBER', value: token.value };
 	if (token.type === 'STRING') return { type: 'STRING', value: token.value };
 	if (token.type === 'IDENTIFIER') return { type: 'Identifier', name: token.value };
-	if (token.type === 'KEYWORD' && (token.value === 'true' || token.value === 'false')) return { type: 'BOOLEAN', value: token.value === 'true' };
+	if (token.type === 'KEYWORD' && (token.value === 'based' || token.value === 'cringe')) return { type: 'BOOLEAN', value: token.value === 'based' };
 	if (token.type === 'PUNCTUATION' && token.value === '(') {
 		const expr = parseExpression(tokens);
 		expect(tokens, 'PUNCTUATION', ')');
@@ -46,9 +46,9 @@ function parseStatement(tokens) {
 	if (!token) return null;
 
 	// Variable declaration: let x = expr;
-	if (token.type === 'KEYWORD' && token.value === 'let') {
+	if (token.type === 'KEYWORD' && token.value === 'gyatt') {
 		tokens.shift();
-		const id = expect(tokens, 'IDENTIFIER');
+        const id = expect(tokens, 'IDENTIFIER');
 		expect(tokens, 'OPERATOR', '=');
 		const expr = parseExpression(tokens);
 		expect(tokens, 'PUNCTUATION', ';');
@@ -56,9 +56,9 @@ function parseStatement(tokens) {
 	}
 
     // Variable declaration: const x = expr;
-	if (token.type === 'KEYWORD' && token.value === 'nocap') {
+	if (token.type === 'KEYWORD' && token.value === 'fr') {
 		tokens.shift();
-		const id = expect(tokens, 'IDENTIFIER');
+        const id = expect(tokens, 'IDENTIFIER');
 		expect(tokens, 'OPERATOR', '=');
 		const expr = parseExpression(tokens);
 		expect(tokens, 'PUNCTUATION', ';');
@@ -88,7 +88,7 @@ function parseStatement(tokens) {
 	}
 
 	// If statement: if (cond) { ... } [else { ... }]
-	if (token.type === 'KEYWORD' && token.value === 'if') {
+	if (token.type === 'KEYWORD' && token.value === 'ong') {
 		tokens.shift();
 		expect(tokens, 'PUNCTUATION', '(');
 		const test = parseExpression(tokens);
@@ -96,7 +96,7 @@ function parseStatement(tokens) {
 		expect(tokens, 'PUNCTUATION', '{');
 		const consequent = parseBlock(tokens);
 		let alternate = null;
-		if (peek(tokens) && peek(tokens).type === 'KEYWORD' && peek(tokens).value === 'else') {
+		if (peek(tokens) && peek(tokens).type === 'KEYWORD' && peek(tokens).value === 'nah') {
 			tokens.shift();
 			expect(tokens, 'PUNCTUATION', '{');
 			alternate = parseBlock(tokens);
@@ -105,7 +105,7 @@ function parseStatement(tokens) {
 	}
 
 	// While statement: while (cond) { ... }
-	if (token.type === 'KEYWORD' && token.value === 'while') {
+	if (token.type === 'KEYWORD' && token.value === 'fentfold') {
 		tokens.shift();
 		expect(tokens, 'PUNCTUATION', '(');
 		const test = parseExpression(tokens);
