@@ -1,7 +1,7 @@
 # Tikt
 
 
-This is a JavaScript-interpreted toy programming language skeleton.
+This is a JavaScript-interpreted toy programming language with tiktok brainrot.
 
 
 ## Usage
